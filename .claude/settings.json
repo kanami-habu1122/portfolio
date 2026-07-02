@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(du -sh photos/stage photos/signing)",
+      "Bash(du -sh cache/thumb)",
+      "Bash(du -sh cache/large)",
+      "Bash(ls -la cache/thumb/stage/ cache/large/stage/)",
+      "Bash(start \"\" \"c:/habu/claude_test/gallery/index.html\")",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git push *)",
+      "Bash(wsl php *)",
+      "Bash(wsl composer *)",
+      "Bash(wsl bash *)",
+      "Read(//c/habu/claude_test/booking/**)",
+      "Bash(npm run *)",
+      "Read(//c/habu/claude_test/booking/database/migrations/**)",
+      "Read(//c/habu/claude_test/booking/app/Models/**)",
+      "Read(//c/habu/claude_test/booking/routes/**)",
+      "Bash(cd c:/habu/claude_test/booking && echo \"=== views tree ===\" && find resources/views -type f | sort && echo \"=== nav ===\" && sed -n '1,40p' resources/views/layouts/navigation.blade.php 2>/dev/null | head -60)",
+      "Read(//c/habu/claude_test/booking/app/Http/Controllers/**)",
+      "Read(//c/habu/claude_test/booking/resources/views/**)",
+      "Read(//c/habu/claude_test/booking/resources/views/layouts/**)",
+      "Read(//c/habu/claude_test/booking/database/seeders/**)",
+      "Bash(wsl.exe -l -v)",
+      "Bash(docker --version)",
+      "Bash(command -v rdctl)",
+      "Bash(rdctl version *)",
+      "Read(//c/Program Files/Rancher Desktop//**)",
+      "Bash(curl -s -m 90 -o /dev/null -w 'http %{http_code}  time %{time_total}s\\\\n' https://photoreservation.onrender.com/)",
+      "Bash(curl -s -m 60 https://photoreservation.onrender.com/)"
+    ],
+    "additionalDirectories": [
+      "c:\\habu\\claude_test\\booking\\database\\migrations",
+      "c:\\habu\\claude_test\\booking\\app\\Models",
+      "c:\\habu\\claude_test\\booking\\app\\Http\\Controllers",
+      "c:\\habu\\claude_test\\booking\\routes",
+      "c:\\habu\\claude_test\\booking\\resources\\views\\layouts",
+      "c:\\habu\\claude_test\\booking\\resources\\views\\bookings",
+      "c:\\habu\\claude_test\\booking\\resources\\views\\admin\\bookings",
+      "c:\\habu\\claude_test\\booking\\resources\\views\\components",
+      "c:\\habu\\claude_test\\booking\\database\\seeders",
+      "c:\\habu\\claude_test\\booking"
+    ]
+  }
+}
