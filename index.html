@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habu — Developer × Photographer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC;
+    --ink:#17141F;
+    --grape:#6C3BF5;
+    --coral:#FF5E3A;
+    --lemon:#FFC93C;
+    --mint:#12BFA0;
+    --sky:#2E8FFF;
+
+    --display:'Bricolage Grotesque',sans-serif;
+    --body:'Instrument Sans',sans-serif;
+    --mono:'Space Mono',monospace;
+
+    --edge:3px solid var(--ink);
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-lg:10px 10px 0 var(--ink);
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  img{max-width:100%;display:block}
+
+  /* dotted paper texture */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:radial-gradient(var(--ink) 1px,transparent 1px);
+    background-size:26px 26px;
+    opacity:.05;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px);position:relative;z-index:1}
+
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:var(--edge)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;text-decoration:none}
+  .brand span{color:var(--grape)}
+  .nav ul{display:flex;gap:26px;list-style:none}
+  .nav a{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:border-color .15s}
+  .nav a:hover,.nav a:focus-visible{border-bottom-color:var(--coral)}
+  .nav .menu-btn{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:clamp(56px,11vw,120px) 0 clamp(48px,9vw,96px)}
+  .hero .eyebrow{display:inline-block;background:var(--ink);color:var(--paper);padding:7px 14px;border-radius:999px;margin-bottom:28px}
+  .hero h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(3rem,13vw,8.5rem);
+    line-height:.92;
+    letter-spacing:-.03em;
+  }
+  .hero h1 .v1{color:var(--grape)}
+  .hero h1 .v2{color:var(--coral)}
+  .hero h1 .v3{color:var(--mint)}
+  .hero h1 span{white-space:nowrap}
+  .hero .lead{max-width:44ch;margin-top:30px;font-size:clamp(1.05rem,2.4vw,1.35rem);line-height:1.55}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;
+    text-decoration:none;
+    padding:14px 22px;border:var(--edge);border-radius:12px;background:var(--paper);
+    box-shadow:var(--shadow);
+    transition:transform .12s ease,box-shadow .12s ease;
+    cursor:pointer;
+  }
+  .btn:hover,.btn:focus-visible{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .btn-fill{background:var(--lemon)}
+  .btn-grape{background:var(--grape);color:var(--paper)}
+
+  /* floating stickers in hero */
+  .stickers{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .sticker{
+    position:absolute;font-family:var(--mono);font-weight:700;font-size:.8rem;
+    padding:10px 14px;border:var(--edge);border-radius:14px;box-shadow:var(--shadow);
+    background:var(--paper);white-space:nowrap;
+  }
+  .sticker.s1{top:14%;right:6%;background:var(--mint);transform:rotate(8deg)}
+  .sticker.s2{top:44%;right:14%;background:var(--sky);color:var(--paper);transform:rotate(-6deg)}
+  .sticker.s3{bottom:16%;right:4%;background:var(--coral);color:var(--paper);transform:rotate(5deg)}
+  .sticker.s4{bottom:28%;right:24%;background:var(--lemon);transform:rotate(-9deg)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:clamp(56px,10vw,110px) 0;position:relative;z-index:1}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px;flex-wrap:wrap}
+  .sec-head .num{font-family:var(--mono);color:var(--coral);font-weight:700}
+  .sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,6vw,3.4rem);letter-spacing:-.02em;line-height:1}
+
+  /* ---------- ABOUT ---------- */
+  #about{border-top:var(--edge)}
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+  .about-grid p{font-size:clamp(1.05rem,2.2vw,1.3rem)}
+  .about-grid p + p{margin-top:20px}
+  .fact-card{border:var(--edge);border-radius:16px;padding:26px;background:var(--paper);box-shadow:var(--shadow)}
+  .fact-card h3{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--grape);margin-bottom:14px}
+  .fact-card dl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:.95rem}
+  .fact-card dt{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;opacity:.6}
+  .fact-card dd{font-weight:600}
+
+  /* ---------- WHAT I DO ---------- */
+  #what{background:var(--ink);color:var(--paper);border-top:var(--edge);border-bottom:var(--edge)}
+  #what .sec-head h2{color:var(--paper)}
+  #what .num{color:var(--lemon)}
+  .worlds{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .world{border:3px solid var(--paper);border-radius:18px;padding:30px;background:transparent}
+  .world .tag{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;padding:5px 12px;border-radius:999px;display:inline-block;margin-bottom:18px}
+  .world.eng .tag{background:var(--sky);color:var(--ink)}
+  .world.crt .tag{background:var(--coral);color:var(--ink)}
+  .world h3{font-family:var(--display);font-weight:800;font-size:1.7rem;margin-bottom:14px}
+  .world ul{list-style:none}
+  .world li{padding:11px 0;border-bottom:1px dashed rgba(251,246,236,.3);display:flex;justify-content:space-between;gap:16px;font-size:.98rem}
+  .world li:last-child{border-bottom:0}
+  .world li span{font-family:var(--mono);font-size:.72rem;opacity:.55;white-space:nowrap}
+
+  /* ---------- WORKS ---------- */
+  .filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+  .filter{
+    font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+    padding:10px 18px;border:var(--edge);border-radius:999px;background:var(--paper);cursor:pointer;
+    transition:transform .1s,box-shadow .1s;
+  }
+  .filter[aria-pressed="true"]{background:var(--grape);color:var(--paper);box-shadow:var(--shadow)}
+  .filter:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{
+    border:var(--edge);border-radius:18px;overflow:hidden;background:var(--paper);
+    box-shadow:var(--shadow);
+    transition:transform .16s ease,box-shadow .16s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:nth-child(3n+1){transform:rotate(-1.4deg)}
+  .card:nth-child(3n+2){transform:rotate(1deg)}
+  .card:nth-child(3n){transform:rotate(-.6deg)}
+  .card:hover{transform:rotate(0) translate(-3px,-4px);box-shadow:var(--shadow-lg)}
+  .card .thumb{height:150px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:2rem;color:var(--ink);border-bottom:var(--edge)}
+  .card[data-cat="dev"] .thumb{background:var(--sky)}
+  .card[data-cat="design"] .thumb:nth-of-type(1){background:var(--lemon)}
+  .card[data-cat="design"] .thumb{background:var(--coral)}
+  .card-body{padding:20px;flex:1;display:flex;flex-direction:column}
+  .card .kind{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;opacity:.6;margin-bottom:8px}
+  .card h3{font-family:var(--display);font-weight:700;font-size:1.25rem;line-height:1.15;margin-bottom:10px}
+  .card p{font-size:.92rem;line-height:1.5;flex:1}
+  .card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .chip{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;padding:4px 8px;border:2px solid var(--ink);border-radius:6px}
+  .card.hide{display:none}
+
+  /* ---------- CONTACT ---------- */
+  #contact{border-top:var(--edge)}
+  .contact-box{border:var(--edge);border-radius:22px;background:var(--grape);color:var(--paper);padding:clamp(32px,7vw,64px);box-shadow:var(--shadow-lg);text-align:center}
+  .contact-box h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,7vw,4rem);line-height:1;letter-spacing:-.02em;margin-bottom:18px}
+  .contact-box p{max-width:40ch;margin:0 auto 30px;font-size:1.1rem}
+  .contact-box .btn{background:var(--lemon);color:var(--ink)}
+  .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .contact-links a{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;border-bottom:2px solid var(--lemon);padding-bottom:2px}
+
+  footer{border-top:var(--edge);padding:28px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .about-grid,.worlds{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr 1fr}
+    .stickers{display:none}
+  }
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .nav ul{display:none}
+    .card:nth-child(n){transform:rotate(0)}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+    .btn,.card,.filter{transition:none}
+    .card:nth-child(n){transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Habu<span>.</span></a>
+    <nav aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#what">What I do</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="stickers" aria-hidden="true">
+      <div class="sticker s1">Laravel</div>
+      <div class="sticker s2">PHP</div>
+      <div class="sticker s3">Photo</div>
+      <div class="sticker s4">Lightroom</div>
+    </div>
+    <div class="wrap">
+      <span class="eyebrow mono">Developer × Photographer</span>
+      <!-- 見出しの3つの動詞は自由に差し替えてください -->
+      <h1><span class="v1">組む。</span><wbr><span class="v2">撮る。</span><wbr><span class="v3">魅せる。</span></h1>
+      <p class="lead">PHP / Laravel を中心としたWeb開発から、アイドルの写真撮影まで。技術と表現、両方の現場でものづくりをしています。</p>
+      <div class="hero-actions">
+        <a class="btn btn-grape" href="#works">作品を見る →</a>
+        <a class="btn" href="#contact">連絡する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="about-grid reveal">
+        <div>
+          <!-- ここを自己紹介に差し替え -->
+          <p>エンジニアとして、PHP / Laravel を中心にWebシステムの開発を手がけています。あわせてAWS上でのサーバー構築から運用・セキュリティ対応まで一貫して担当し、お客さまと向き合う場面も多めです。</p>
+          <p>その一方で、カメラを持って追いかけているのがアイドルの写真撮影。ステージの一瞬を切り取る現場の熱量と、コードを組み上げる静かな集中。その両方を行き来するのが自分らしさだと思っています。</p>
+        </div>
+        <div class="fact-card">
+          <h3>Profile</h3>
+          <dl>
+            <dt>Role</dt><dd>Web Developer</dd>
+            <dt>Focus</dt><dd>PHP・Laravel・AWS</dd>
+            <dt>Also</dt><dd>アイドル写真撮影</dd>
+            <dt>Camera</dt><dd>Photo / Lightroom</dd>
+            <dt>Base</dt><dd>Japan</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT I DO ============ -->
+  <section id="what">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="num">02</span>
+        <h2>What I do</h2>
+      </div>
+      <div class="worlds">
+        <div class="world eng reveal">
+          <span class="tag">Engineering</span>
+          <h3>技術でつくる</h3>
+          <ul>
+            <li>PHP / Laravel でのWeb開発 <span>Web</span></li>
+            <li>AWSサーバー構築・運用 <span>Cloud</span></li>
+            <li>セキュリティ監査・IAM/MFA運用 <span>Security</span></li>
+            <li>サーバー移行・運用改善 <span>Ops</span></li>
+            <li>技術提案・ドキュメント作成 <span>Docs</span></li>
+          </ul>
+        </div>
+        <div class="world crt reveal">
+          <span class="tag">Creative</span>
+          <h3>写真で魅せる</h3>
+          <ul>
+            <li>アイドルの写真撮影 <span>Idol</span></li>
+            <li>ライブ・ステージ撮影 <span>Live</span></li>
+            <li>ポートレート撮影 <span>Portrait</span></li>
+            <li>Lightroom レタッチ <span>Edit</span></li>
+            <li>写真のセレクト・納品 <span>Deliver</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKS ============ -->
+  <section id="works">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="num">03</span>
+        <h2>Works</h2>
+      </div>
+
+      <div class="filters reveal" role="group" aria-label="作品のカテゴリ絞り込み">
+        <button class="filter" data-filter="all" aria-pressed="true">すべて</button>
+        <button class="filter" data-filter="dev" aria-pressed="false">開発</button>
+        <button class="filter" data-filter="design" aria-pressed="false">デザイン・写真</button>
+      </div>
+
+      <!-- カード = 実績1件。data-cat="dev" か "design"。中身は差し替えてください -->
+      <div class="grid">
+
+        <article class="card reveal" data-cat="dev">
+          <div class="thumb">SYS</div>
+          <div class="card-body">
+            <span class="kind">Web App</span>
+            <h3>管理システム開発</h3>
+            <p>業務向けの管理システムを設計・開発。運用しやすさと保守性を意識した構成に。</p>
+            <div class="chips"><span class="chip">PHP</span><span class="chip">Laravel</span><span class="chip">AWS</span></div>
+          </div>
+        </article>
+
+        <article class="card reveal" data-cat="dev">
+          <div class="thumb">AWS</div>
+          <div class="card-body">
+            <span class="kind">Cloud / Infra</span>
+            <h3>AWS サーバー構築・運用</h3>
+            <p>EC2などのサーバー構築からネットワーク設定・運用まで一貫して担当。IAM・MFA整備やCloudTrailでのアクセス調査といったセキュリティ対応まで手がけています。</p>
+            <div class="chips"><span class="chip">EC2</span><span class="chip">Infra</span><span class="chip">Security</span></div>
+          </div>
+        </article>
+
+        <article class="card reveal" data-cat="design">
+          <div class="thumb">LIVE</div>
+          <div class="card-body">
+            <span class="kind">Idol Photography</span>
+            <h3>アイドル ライブ撮影</h3>
+            <p>ステージ上の一瞬の表情や動きを狙って撮影。会場の光や熱量ごと切り取ることを大切にしています。</p>
+            <div class="chips"><span class="chip">Live</span><span class="chip">Stage</span><span class="chip">Portrait</span></div>
+          </div>
+        </article>
+
+        <article class="card reveal" data-cat="design">
+          <div class="thumb">PORT</div>
+          <div class="card-body">
+            <span class="kind">Portrait / Retouch</span>
+            <h3>ポートレート・レタッチ</h3>
+            <p>撮影からLightroomでのレタッチまで。被写体の魅力が伝わるよう、色味やトーンを一枚ずつ追い込んでいます。</p>
+            <div class="chips"><span class="chip">Portrait</span><span class="chip">Lightroom</span></div>
+          </div>
+        </article>
+
+        <article class="card reveal" data-cat="design">
+          <div class="thumb">???</div>
+          <div class="card-body">
+            <span class="kind">Your work</span>
+            <h3>次の作品をここに</h3>
+            <p>このカードをコピーして、実績を追加していってください。data-cat を "dev" か "design" にするだけでフィルターに反映されます。</p>
+            <div class="chips"><span class="chip">Edit me</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box reveal">
+        <h2>話しましょう</h2>
+        <p>お仕事のご相談、制作の依頼、なんでもお気軽にどうぞ。</p>
+        <a class="btn" href="mailto:k_habu@casareal.co.jp">メールを送る →</a>
+        <div class="contact-links">
+          <!-- リンク先は差し替えてください -->
+          <a href="#">GitHub</a>
+          <a href="#">Instagram</a>
+          <a href="#">X (Twitter)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> Habu</span>
+    <span>Built with too much coffee ☕</span>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // works filter
+  const filters = document.querySelectorAll('.filter');
+  const cards = document.querySelectorAll('.card');
+  filters.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      filters.forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      const f = btn.dataset.filter;
+      cards.forEach(c=>{
+        const show = (f==='all' || c.dataset.cat===f);
+        c.classList.toggle('hide',!show);
+      });
+    });
+  });
+
+  // scroll reveal
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
