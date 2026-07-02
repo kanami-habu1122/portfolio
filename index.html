@@ -172,6 +172,8 @@
   .card p{font-size:.92rem;line-height:1.5;flex:1}
   .card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
   .chip{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;padding:4px 8px;border:2px solid var(--ink);border-radius:6px}
+  .card-link{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;color:var(--grape);border-bottom:2px solid var(--grape);padding-bottom:2px;align-self:flex-start;transition:color .15s,border-color .15s}
+  .card-link:hover{color:var(--coral);border-bottom-color:var(--coral)}
   .card.hide{display:none}
 
   /* ---------- CONTACT ---------- */
@@ -321,6 +323,17 @@
 
       <!-- カード = 実績1件。data-cat="dev" か "design"。中身は差し替えてください -->
       <div class="grid">
+
+        <article class="card reveal" data-cat="dev">
+          <div class="thumb">GALLERY</div>
+          <div class="card-body">
+            <span class="kind">Web Site</span>
+            <h3>フォトギャラリーサイト</h3>
+            <p>撮影した写真をカテゴリごとに展示するギャラリーサイトを制作。メーソンリー表示・拡大表示（ズーム対応）で、フォルダに写真を追加すると自動で反映される仕組みにしています。</p>
+            <div class="chips"><span class="chip">HTML</span><span class="chip">JavaScript</span><span class="chip">GitHub Actions</span></div>
+            <a class="card-link" href="https://kanami-habu1122.github.io/gallery/" target="_blank" rel="noopener">サイトを見る →</a>
+          </div>
+        </article>
 
         <article class="card reveal" data-cat="dev">
           <div class="thumb">SYS</div>
